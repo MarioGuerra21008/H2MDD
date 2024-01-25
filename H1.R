@@ -9,7 +9,17 @@ View(movies)
 
 #2
 
-
+View(movies$title)
+View(movies$year)
+View(movies$runtime)
+View(movies$certificate)
+View(movies$genre)
+View(movies$director)
+View(movies$stars)
+View(movies$rating)
+View(movies$metascore)
+View(movies$votes)
+View(movies$gross)
 
 
 
