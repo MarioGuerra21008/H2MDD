@@ -172,8 +172,11 @@ pelicula_mas_votada <- movies[which.max(movies$voteCount), ]
 print(pelicula_mas_votada[c("title", "voteCount")])
 
 
-#4.4
+#4.4 Pelicula con peores votaciones
 
+peor_pelicula <- movies[which.min(movies$voteAvg), ]
+
+print(peor_pelicula[c("title","voteAvg")])
 
 #4.5
 
