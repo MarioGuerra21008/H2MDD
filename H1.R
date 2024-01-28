@@ -1,10 +1,5 @@
-movies<-read.csv("C:/Users/Alvar/OneDrive/Documentos/SemestreVII/MineriaDeDatos/Hoja1/movies.csv")
+movies<-read.csv("movies.csv")
 View(movies)
-
-library(readr)
-library(dplyr)
-library(ggplot2)
-library(pastecs)
 
 #1
 
@@ -180,6 +175,24 @@ print(peor_pelicula[c("title","voteAvg")])
 
 #4.5
 
+library(ggplot2)
+install.packages("ggplot2")
+
+movies$releaseYear <- as.integer(format(as.Date(movies$releaseDate), "%Y"))
+
+conteo_por_anio <- movies %>%group_by(releaseYear) %>%summarise(numero_de_peliculas = n())
+
+anio_mas_peliculas <- conteo_por_anio[which.max(conteo_por_anio$numero_de_peliculas), "releaseYear"]
+
+tabla_conteo <- as.data.frame(conteo_por_anio)
+
+print(tabla_conteo)
+print(paste("Año con más películas:", anio_mas_peliculas))
+
+ggplot(conteo_por_anio, aes(x = as.factor(releaseYear), y = numero_de_peliculas)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(title = "Número de películas por año", x = "Año", y = "Número de películas") +
+  theme_minimal()
 
 #4.6
 
