@@ -14,19 +14,32 @@ mean(movies$voteAvg)
 
 #2
 
-View(movies$title)
-View(movies$year)
+View(movies$id)
+View(movies$budget)
+View(movies$genres)
+View(movies$homePage)
+View(movies$productionCompany)
+View(movies$productionCompanyCountry)
+View(movies$productionCountry)
+View(movies$revenue)
 View(movies$runtime)
-View(movies$certificate)
-View(movies$genre)
+View(movies$video)
 View(movies$director)
-View(movies$stars)
-View(movies$rating)
-View(movies$metascore)
-View(movies$votes)
-View(movies$gross)
-
-
+View(movies$actors)
+View(movies$actorsPopularity)
+View(movies$actorsCharacter)
+View(movies$originalTitle)
+View(movies$title)
+View(movies$originalLanguage)
+View(movies$popularity)
+View(movies$releaseDate)
+View(movies$voteAvg)
+View(movies$genresAmount)
+View(movies$productionCoAmount)
+View(movies$productionCountriesAmount)
+View(movies$actorsAmount)
+View(movies$castWomenAmount)
+View(movies$castMenAmount)
 
 #3
 
