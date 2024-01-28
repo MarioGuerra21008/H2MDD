@@ -248,8 +248,11 @@ ggplot(genre_counts[1:10, ], aes(x = reorder(Genre, Count), y = Count)) +
        y = "Cantidad") +
   coord_flip()
 
-#4.7
+#4.7 Películas del género drama que obtuvieron mayor ganancia
 
+peliculas_del_genero_principal <- movies[grep(genero_principal, tolower(movies$genres)), ]
+pelis_con_mayor_ganancia_por_genero <- peliculas_del_genero_principal[order(peliculas_del_genero_principal$revenue, decreasing = TRUE), ]
+View(pelis_con_mayor_ganancia_por_genero[c("title", "genres", "revenue")])
 
 #4.8
 
