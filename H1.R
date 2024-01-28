@@ -192,7 +192,7 @@ peor_pelicula <- movies[which.min(movies$voteAvg), ]
 
 print(peor_pelicula[c("title","voteAvg")])
 
-#4.5
+#4.5 Cuantas peliculas se hicieron cada año y en qué año se hicieron mas.
 
 library(ggplot2)
 install.packages("ggplot2")
@@ -213,8 +213,40 @@ ggplot(conteo_por_anio, aes(x = as.factor(releaseYear), y = numero_de_peliculas)
   labs(title = "Número de películas por año", x = "Año", y = "Número de películas") +
   theme_minimal()
 
-#4.6
+#4.6 Género principal de las 20 películas más recientes. Género que predomina en el conjunto de datos.
 
+
+#Genero mas popular entre las 20 peliculas mas recientes.
+
+peliculas_ordenadas_por_fecha <- movies[order(movies$releaseDate, decreasing = TRUE), ]
+top_20_pelisrecientes <- head(peliculas_ordenadas_por_fecha, 20)
+
+genero_principal_top20 <- names(sort(table(unlist(strsplit(tolower(top_20_pelisrecientes$genres), ","))), decreasing = TRUE))[1]
+
+print(genero_principal_top20)
+
+#Genero mas popular en general
+
+genero_principal <- names(sort(table(unlist(strsplit(tolower(movies$genres), ","))), decreasing = TRUE))[1]
+
+print(genero_principal)
+
+#Grafico de generos en el conjunto de datos.
+
+library(ggplot2)
+
+genre_counts <- as.data.frame(table(unlist(strsplit(tolower(movies$genres), ","))))
+colnames(genre_counts) <- c("Genre", "Count")
+
+genre_counts <- genre_counts[order(genre_counts$Count, decreasing = TRUE), ]
+
+ggplot(genre_counts[1:10, ], aes(x = reorder(Genre, Count), y = Count)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  labs(title = "Género que predomina en el conjunto de datos completo",
+       x = "Género",
+       y = "Cantidad") +
+  coord_flip()
 
 #4.7
 
