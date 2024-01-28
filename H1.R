@@ -3,9 +3,14 @@ View(movies)
 
 #1
 
+nrow(movies)
+ncol(movies)
 
+runtimeMovies <- c(movies$runtime)
+mostLongMovies <- sort(runtimeMovies, decreasing=TRUE)
+head(mostLongMovies,10)
 
-
+mean(movies$voteAvg)
 
 #2
 
