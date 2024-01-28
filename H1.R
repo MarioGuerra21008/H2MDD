@@ -147,10 +147,19 @@ print(top_50_actores)
 #4
 
 
-#4.1
+#4.1 Peliculas con mayor presupuestoS
+
+datos_ordenados <- movies[order(-movies$budget), ]
+
+top_10_presupuesto <- head(datos_ordenados[, c("budget", "title")], 10)
+
+# Imprimir el resultado
+print(top_10_presupuesto)
+
+#4.2 Peliculas con mayores ingresos
 
 
-#4.2
+
 
 
 #4.3
