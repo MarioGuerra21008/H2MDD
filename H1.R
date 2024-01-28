@@ -158,8 +158,13 @@ print(top_10_presupuesto)
 
 #4.2 Peliculas con mayores ingresos
 
+datos_ordenados_ingresos <- movies[order(-movies$revenue), ]
 
+# Seleccionar las 10 primeras filas con solo las columnas de interés
+top_10_ingresos <- head(datos_ordenados_ingresos[, c("revenue", "title")], 10)
 
+# Imprimir el resultado
+print(top_10_ingresos)
 
 
 #4.3
