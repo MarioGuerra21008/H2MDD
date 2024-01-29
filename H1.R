@@ -442,3 +442,35 @@ conteo_por_pais <- conteo_por_pais[order(-conteo_por_pais$numero_de_peliculas), 
 
 
 print(conteo_por_pais)
+
+#Distribución de películas por idioma
+
+library(ggplot2)
+
+language_counter <- as.data.frame(table(unlist(strsplit(tolower(movies$originalLanguage), ","))))
+colnames(language_counter) <- c("Language", "Count")
+
+language_counter <- language_counter[order(language_counter$Count, decreasing = TRUE), ]
+
+ggplot(language_counter[1:10, ], aes(x = reorder(Language, Count), y = Count)) +
+  geom_bar(stat = "identity", fill = "red") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  labs(title = "Distribución de lenguajes originales en el conjunto de datos",
+       x = "Lenguaje Original",
+       y = "# de películas") +
+  coord_flip()
+
+#Películas con menor cantidad de actores
+
+menor_cant_actores <- movies[order(movies$actorsAmount, decreasing = FALSE), ]
+print(menor_cant_actores[c("title","actorsAmount")])
+
+#Director que dirigió más películas
+
+director_con_mas_pelisdirigidas <- names(sort(table(unlist(strsplit((movies$director), ","))), decreasing = TRUE))[1]
+print(director_con_mas_pelisdirigidas)
+
+#Películas con mayor cantidad de géneros
+
+pelis_con_mas_generos <- movies[order(movies$genresAmount, decreasing = TRUE), ]
+View(pelis_con_mas_generos[c("title","genresAmount")])
