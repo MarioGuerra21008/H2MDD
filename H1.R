@@ -1,7 +1,5 @@
-#Hoja de trabajo
-setwd("C:/Users/Kristopher/Documents/")
-
 movies<-read.csv("movies.csv")
+View(movies)
 
 #1
 
