@@ -274,7 +274,11 @@ top_20_pelisantiguas <- tail(peliculas_ordenadas_por_fecha, 20)
 print(top_20_pelisrecientes[c("title","actorsAmount","releaseDate")])
 print(top_20_pelisantiguas[c("title","actorsAmount","releaseDate")])
 
-#4.9
+#4.9 La cantidad de hombres y mujeres influye en la popularidad e ingresos de las películas?
+
+peliculas_mas_populares_con_ingresos <- movies[order(-movies$popularity, -movies$revenue), ]
+head(peliculas_mas_populares_con_ingresos[c("title","popularity","revenue","castMenAmount","castWomenAmount")], 20)
+tail(peliculas_mas_populares_con_ingresos[c("title","popularity","revenue","castMenAmount","castWomenAmount")], 20)
 
 
 #4.10
