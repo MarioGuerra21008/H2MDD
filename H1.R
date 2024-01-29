@@ -280,9 +280,10 @@ peliculas_mas_populares_con_ingresos <- movies[order(-movies$popularity, -movies
 head(peliculas_mas_populares_con_ingresos[c("title","popularity","revenue","castMenAmount","castWomenAmount")], 20)
 tail(peliculas_mas_populares_con_ingresos[c("title","popularity","revenue","castMenAmount","castWomenAmount")], 20)
 
-
 #4.10
 
+top_peliscalificadas <- movies[order(-movies$voteAvg), ]
+View(head(top_peliscalificadas[c("title","director","voteAvg")], 20))
 
 #4.11
 
