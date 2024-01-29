@@ -1,5 +1,7 @@
+#Hoja de trabajo
+setwd("C:/Users/Kristopher/Documents/")
+
 movies<-read.csv("movies.csv")
-View(movies)
 
 #1
 
@@ -417,6 +419,28 @@ ggplot(movies, aes(x = genres, y = runtime)) +
 #5
 
 
+# Promedio de popularidad por género
+library(tidyr)
+install.packages("tidyr")
 
 
+promedio_popularidad_por_genero <- movies %>%
+  separate_rows(genres, sep = "\\|") %>%
+  group_by(genres) %>%
+  summarise(promedio_popularidad = mean(popularity, na.rm = TRUE))
 
+print(promedio_popularidad_por_genero)
+
+
+# Distribución de películas por país de producción
+
+
+conteo_por_pais <- movies %>%
+  group_by(productionCountry) %>%
+  summarise(numero_de_peliculas = n())
+
+
+conteo_por_pais <- conteo_por_pais[order(-conteo_por_pais$numero_de_peliculas), ]
+
+
+print(conteo_por_pais)
