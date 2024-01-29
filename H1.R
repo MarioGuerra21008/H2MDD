@@ -287,19 +287,130 @@ View(head(top_peliscalificadas[c("title","director","voteAvg")], 20))
 
 #4.11
 
+# Muestra las primeras filas de los datos
+head(movies)
+
+# Resumen estadístico de las variables numéricas
+summary(movies)
+
+
+install.packages("ggplot2")
+
+
+library(ggplot2)
+
+# Gráfico de dispersión
+ggplot(movies, aes(x = budget, y = revenue)) +
+  geom_point() +
+  labs(title = "Gráfico de Dispersión: Presupuestos vs. Ingresos",
+       x = "Presupuesto",
+       y = "Ingresos")
+
+
+
+
+# Histograma de presupuestos
+ggplot(movies, aes(x = budget)) +
+  geom_histogram(binwidth = 10000000, fill = "blue", color = "black") +
+  labs(title = "Histograma de Presupuestos",
+       x = "Presupuesto",
+       y = "Frecuencia")
+
+# Histograma de ingresos
+ggplot(movies, aes(x = revenue)) +
+  geom_histogram(binwidth = 10000000, fill = "green", color = "black") +
+  labs(title = "Histograma de Ingresos",
+       x = "Ingresos",
+       y = "Frecuencia")
 
 #4.12
 
+movies$releaseDate <- as.Date(movies$releaseDate, format = "%Y-%m-%d")
+
+movies$mesLanzamiento <- format(movies$releaseDate, "%m")
+
+# Gráfico de barras
+ggplot(movies, aes(x = mesLanzamiento, y = revenue)) +
+  stat_summary(fun = "mean", geom = "bar", fill = "blue") +
+  labs(title = "Ingresos Promedio por Mes de Lanzamiento",
+       x = "Mes",
+       y = "Ingresos Promedio")
+
+
 
 #4.13
+
+library(dplyr)
+
+# Agrupar por mes y calcular ingreso promedio
+ingresos_por_mes <- movies %>%
+  group_by(mesLanzamiento) %>%
+  summarise(ingreso_promedio = mean(revenue, na.rm = TRUE))
+
+
+# Encontrar los meses con los mejores ingresos
+meses_mejores_ingresos <- ingresos_por_mes %>%
+  filter(ingreso_promedio == max(ingreso_promedio))
+
+
+# Gráfico de barras
+ggplot(ingresos_por_mes, aes(x = mesLanzamiento, y = ingreso_promedio)) +
+  geom_bar(stat = "identity", fill = "blue") +
+  labs(title = "Ingresos Promedio por Mes de Lanzamiento",
+       x = "Mes",
+       y = "Ingresos Promedio")
+
+
+# Número promedio de películas por mes
+promedio_peliculas_por_mes <- movies %>%
+  group_by(mesLanzamiento) %>%
+  summarise(promedio_peliculas = n() / n_distinct(title))
+
+
+# Gráfico de barras
+ggplot(promedio_peliculas_por_mes, aes(x = mesLanzamiento, y = promedio_peliculas)) +
+  geom_bar(stat = "identity", fill = "green") +
+  labs(title = "Número Promedio de Películas por Mes de Lanzamiento",
+       x = "Mes",
+       y = "Número Promedio de Películas")
 
 
 #4.14
 
 
+# Gráfico de dispersión con la columna 'voteAvg'
+ggplot(movies, aes(x = voteAvg, y = revenue)) +
+  geom_point() +
+  labs(title = "Gráfico de Dispersión: Calificaciones vs. Ingresos",
+       x = "Calificación",
+       y = "Ingresos")
+
+
+# Mostrar la correlación
+correlation_rating_revenue <- cor(movies$voteAvg, movies$revenue, use = "complete.obs")
+print(paste("Correlación entre calificaciones e ingresos:", correlation_rating_revenue))
+
+
+
 #4.15
 
 
+# Identificar la película más larga
+pelicula_mas_larga <- movies[which.max(movies$runtime), ]
+
+# Obtener el género principal de la película más larga
+genero_principal_mas_larga <- pelicula_mas_larga$genres
+
+# Mostrar el género principal
+print(paste("El género principal de la película más larga es:", genero_principal_mas_larga))
+
+
+# Gráfico de barras
+ggplot(movies, aes(x = genres, y = runtime)) +
+  geom_bar(stat = "summary", fun = "mean", fill = "blue") +
+  labs(title = "Duración Promedio de Películas por Género",
+       x = "Género",
+       y = "Duración Promedio")
 
 
 
