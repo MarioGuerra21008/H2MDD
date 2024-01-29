@@ -254,8 +254,25 @@ peliculas_del_genero_principal <- movies[grep(genero_principal, tolower(movies$g
 pelis_con_mayor_ganancia_por_genero <- peliculas_del_genero_principal[order(peliculas_del_genero_principal$revenue, decreasing = TRUE), ]
 View(pelis_con_mayor_ganancia_por_genero[c("title", "genres", "revenue")])
 
-#4.8
+#4.8 La cantidad de actores influye en los ingresos? Se han hecho películas con más actores en los últimos años?
 
+ingresos_sobre_actores <- cor(movies$actorsAmount, movies$revenue)
+print(paste("La correlación entre la cantidad de actores y los ingresos por película es de: ", ingresos_sobre_actores))
+
+library(ggplot2)
+
+ggplot(movies, aes(x = actorsAmount, y = revenue)) +
+  geom_point(color = "blue") +
+  geom_smooth(method = "lm", color = "red", se = FALSE) +
+  labs(title = "Relación entre la cantidad de actores y los ingresos",
+       x = "Cantidad de actores",
+       y = "Ingresos (Revenue)")
+
+#Las 100 películas y su cantidad de actores.
+
+top_20_pelisantiguas <- tail(peliculas_ordenadas_por_fecha, 20)
+print(top_20_pelisrecientes[c("title","actorsAmount","releaseDate")])
+print(top_20_pelisantiguas[c("title","actorsAmount","releaseDate")])
 
 #4.9
 
