@@ -37,6 +37,10 @@ str(movies_clust_data)
 normalized_data_movies <- scale(movies_clust_data)
 View(normalized_data_movies)
 
+#
+# Obtener el número de Clústeres para poder aplicar Clustering
+#
+
 set.seed(123)
 k_values <- 1:10
 iner <- numeric(length(k_values))
@@ -51,3 +55,21 @@ plot(k_values, iner, type = "b", main = "Método del Codo", xlab = "Número de C
 
 # Agregar líneas para facilitar la identificación del codo
 abline(v = which.min(diff(iner) > 10) + 1, col = "red", lty = 2)
+
+
+#
+# Aplicar Clústering con método K-Means
+# 
+
+set.seed(123)
+num_clusters <- 2  # Número de clústeres determinado anteriormente
+
+# Aplicar el algoritmo de k-means
+kmeans_model <- kmeans(normalized_data_movies, centers = num_clusters)
+
+# Añadir las etiquetas de clúster al conjunto de datos
+movies_clust_data$kmeans_cluster <- as.factor(kmeans_model$cluster)
+
+# Visualizar el resultado del clustering
+table(movies_clust_data$kmeans_cluster)
+
