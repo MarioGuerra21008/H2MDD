@@ -31,11 +31,18 @@ View(movies_clust_data)
 movies_clust_data$castWomenAmount <- as.numeric(movies_clust_data$castWomenAmount)
 movies_clust_data$castMenAmount <- as.numeric(movies_clust_data$castMenAmount)
 
-
 str(movies_clust_data)
 
 normalized_data_movies <- scale(movies_clust_data)
+normalized_data_movies <- na.omit(normalized_data_movies)
 View(normalized_data_movies)
+
+#
+# Importación de módulos de clúster.
+#
+
+install.packages("cluster")
+library(cluster)
 
 #
 # Obtener el número de Clústeres para poder aplicar Clustering
@@ -73,3 +80,28 @@ movies_clust_data$kmeans_cluster <- as.factor(kmeans_model$cluster)
 # Visualizar el resultado del clustering
 table(movies_clust_data$kmeans_cluster)
 
+#
+# Aplicar Clustering con método de clustering jerárquico
+#
+library(ggplot2)
+
+# Realizar clustering jerárquico
+hc_model <- hclust(dist(normalized_data_movies), method = "complete")
+
+# Determinar el número óptimo de clusters
+num_clusters <- 2
+
+# Obtener las etiquetas de clúster
+clusters_hc <- cutree(hc_model, k = num_clusters)
+
+# Añadir las etiquetas de clúster al conjunto de datos
+movies_clust_data$hc_cluster <- as.factor(clusters_hc)
+
+# Realizar Análisis de Componentes Principales (PCA)
+pca <- prcomp(normalized_data_movies)
+data_pca <- as.data.frame(pca$x[, 1:2])  # Tomamos solo las dos primeras componentes principales
+
+# Crear diagrama de dispersión con colores por clúster
+ggplot(data_pca, aes(x = PC1, y = PC2, color = clusters_hc)) +
+  geom_point() +
+  labs(title = "Clustering Jerárquico - ACP")
