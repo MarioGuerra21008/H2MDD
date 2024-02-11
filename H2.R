@@ -105,3 +105,20 @@ data_pca <- as.data.frame(pca$x[, 1:2])  # Tomamos solo las dos primeras compone
 ggplot(data_pca, aes(x = PC1, y = PC2, color = clusters_hc)) +
   geom_point() +
   labs(title = "Clustering Jerárquico - ACP")
+
+#
+# Comparación de los algoritmos de clustering, con su calidad de agrupamiento.
+#
+
+# Calcular la medida de silueta para k-means
+silhouette_kmeans <- silhouette(kmeans_model$cluster, dist(normalized_data_movies))
+
+# Mostrar el resumen de la medida de silueta
+summary(silhouette_kmeans)
+
+# Calcular la medida de silueta para clustering jerárquico
+silhouette_hc <- silhouette(clusters_hc, dist(normalized_data_movies))
+
+# Mostrar el resumen de la medida de silueta
+summary(silhouette_hc)
+
